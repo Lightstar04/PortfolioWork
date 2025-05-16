@@ -2,6 +2,7 @@
 using LMS.Dialogs;
 using LMS.Models;
 using System.Windows;
+using System.Windows.Input;
 
 namespace LMS.Views
 {
@@ -25,8 +26,23 @@ namespace LMS.Views
 
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AddEmployeeDialog();
-            window.ShowDialog();
+            var dialog = new AddEmployeeDialog();
+            dialog.Owner = this;
+            dialog.ShowDialog();
+
+            var employees = _databaseManager.GetEmployees();
+
+            EmployeeDataGrid.ItemsSource = null;
+            EmployeeDataGrid.ItemsSource = employees;
+        }
+
+        private void EmployeeDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var employee = EmployeeDataGrid.SelectedItem as Employee;
+
+            var dialog = new AddEmployeeDialog(employee);
+            dialog.Owner = this;
+            dialog.ShowDialog();
         }
     }
 }

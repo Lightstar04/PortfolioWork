@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LMS.Dialogs"
         mc:Ignorable="d"
-        Title="AddEmployeeDialog" Height="450" Width="800">
+        WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterOwner"
+        Title="Add Employee"
+        Height="375" Width="450">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" HorizontalAlignment="Right" Margin="0 25 0 0">
+            <TextBlock Text="Employee number: " Margin="0 11 0 0"/>
+            <TextBlock Text="Firstname: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+            <TextBlock Text="Job: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+            <TextBlock Text="Manager: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+            <TextBlock Text="Hiredate: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+            <TextBlock Text="Salary: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+            <TextBlock Text="Commission: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+            <TextBlock Text="Department: " Margin="0 14 0 0" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0 25 0 0">
+            <TextBox x:Name="empnoInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <TextBox x:Name="enameInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <TextBox x:Name="jobInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <TextBox x:Name="mgrInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <DatePicker x:Name="hiredateInput" FontSize="9" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <TextBox x:Name="salInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <TextBox x:Name="commInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <TextBox x:Name="deptnoInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+        </StackPanel>
+        <Button Grid.ColumnSpan="2" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center" 
+                Width="150" Height="20"
+                Content="Save" Background="Green" 
+                Foreground="AliceBlue" Margin="0 0 0 25"
+                Click="Save_Click"/>
     </Grid>
 </Window>

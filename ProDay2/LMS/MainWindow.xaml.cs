@@ -42,6 +42,7 @@ namespace LMS
         private void EmployeesWindow_Click(object sender, RoutedEventArgs e)
         {
             var window = new EmployeeWindow();
+            window.Owner = this;
             window.Show();
         }
     }

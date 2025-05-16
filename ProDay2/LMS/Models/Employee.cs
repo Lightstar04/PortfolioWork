@@ -1,6 +1,6 @@
 ﻿namespace LMS.Models;
 
-class Employee
+public class Employee
 {
     public decimal Empno { get; set; }
     public string Ename { get; set; }

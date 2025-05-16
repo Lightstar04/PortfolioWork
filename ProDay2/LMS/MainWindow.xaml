@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="Learning Management System"
         Height="500" Width="1200"
-        WindowStartupLocation="CenterScreen">
-    <StackPanel>
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+    <StackPanel VerticalAlignment="Center">
         <Button Content="StackPanel" Width="150" Height="50" Click="Stack_Click"/>
         <Button Content="Grid" Width="150" Height="50" Click="Grid_Click"/>
         <Button Content="DataGrid" Width="150" Height="50" Click="DataGrid_Click"/>

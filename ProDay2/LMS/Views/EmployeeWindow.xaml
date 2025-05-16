@@ -5,23 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LMS.Views"
         mc:Ignorable="d"
-        Title="EmployeeWindow" Height="450" Width="800">
+        Title="EmployeeWindow"
+        WindowStartupLocation="CenterOwner"
+        Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" VerticalAlignment="Bottom" 
-                    HorizontalAlignment="Right" Margin="0 0 50 25">
-            <Button Content="Add +" 
+        <StackPanel Grid.Row="0" VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right" Margin="0 0 50 20">
+            <Button Content="Add +"
                     Background="LightSeaGreen"
-                    Foreground="White" 
+                    Foreground="White"
                     Width="125"
                     Click="AddEmployee_Click"/>
         </StackPanel>
         <DataGrid Grid.Row="1"
-            x:Name="EmployeeDataGrid" 
-            VerticalAlignment="Center" 
-            HorizontalAlignment="Center" />
+                  x:Name="EmployeeDataGrid"
+                  MouseDoubleClick="EmployeeDataGrid_MouseDoubleClick"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center" />
     </Grid>
 </Window>
