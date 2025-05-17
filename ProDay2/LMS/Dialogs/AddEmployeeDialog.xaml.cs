@@ -10,14 +10,25 @@ namespace LMS.Dialogs
     public partial class AddEmployeeDialog : Window
     {
         private readonly EmployeeManagement _databaseManager;
+        private readonly DepartmentManagement _departmentManager;
         private readonly bool isEditingMode;
 
         public AddEmployeeDialog()
         {
             InitializeComponent();
             
-            hiredateInput.SelectedDate = DateTime.Now;
             _databaseManager = new EmployeeManagement();
+            _departmentManager = new DepartmentManagement();
+            
+            hiredateInput.SelectedDate = DateTime.Now;
+
+            var departments = _departmentManager.GetDepartments();
+            departmentsComboBox.ItemsSource = departments;
+            departmentsComboBox.SelectedIndex = 0;
+
+            var managers = _databaseManager.GetEmployees();
+            mgrComboBox.ItemsSource = managers;
+            mgrComboBox.SelectedIndex = 0;
         }
 
         public AddEmployeeDialog(Employee employee)
@@ -29,11 +40,26 @@ namespace LMS.Dialogs
             empnoInput.Text = employee.Empno.ToString();
             enameInput.Text = employee.Ename.ToString();
             jobInput.Text = employee.Job.ToString();
-            mgrInput.Text = employee.Mgr.ToString();
-            hiredateInput.Text = employee.HireDate.ToString();
+            hiredateInput.SelectedDate = employee.HireDate;
             salInput.Text = employee.Salary.ToString();
             commInput.Text = employee.Comm.ToString();
-            deptnoInput.Text = employee.Deptno.ToString();
+
+            var departments = departmentsComboBox.ItemsSource as List<Department>;
+            if(departments == null)
+            {
+                return;
+            }
+
+            var managers = mgrComboBox.ItemsSource as List<Employee>;
+            if(managers == null)
+            {
+                return;
+            }
+
+            var mgr = managers.Find(x => x.Empno == employee.Mgr);
+            mgrComboBox.SelectedItem = mgr;
+            var department = departments.Find(x => x.Deptno == employee.Deptno);
+            departmentsComboBox.SelectedItem = department;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -41,23 +67,37 @@ namespace LMS.Dialogs
             var empno = decimal.Parse(empnoInput.Text);
             var ename = enameInput.Text;
             var job = jobInput.Text;
-            decimal? mgr = string.IsNullOrEmpty(mgrInput.Text) ? null : decimal.Parse(mgrInput.Text);
             var hiredate = hiredateInput.SelectedDate ?? DateTime.Now;
             var sal = decimal.Parse(salInput.Text);
             decimal? comm = string.IsNullOrEmpty(commInput.Text) ? null : decimal.Parse(commInput.Text);
-            var deptno = decimal.Parse(deptnoInput.Text);
 
-            var newEmployee = new Employee(empno, ename, job, mgr, hiredate, sal, comm, deptno);
+            var selectedDepartment = departmentsComboBox.SelectedItem as Department;
+            if(selectedDepartment is null)
+            {
+                MessageBox.Show(
+                    "Please, select department",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            var selectedManager = mgrComboBox.SelectedItem as Employee;
+
+            var mgr = selectedManager?.Empno;
+            var deptno = selectedDepartment.Deptno;
+
+            var employee = new Employee(empno, ename, job, mgr, hiredate, sal, comm, deptno);
 
             bool isSuccess;
 
             if (isEditingMode)
             {
-                isSuccess = _databaseManager.UpdateEmployee( employee);
+                isSuccess = _databaseManager.UpdateEmployee(employee);
             }
             else
             {
-                isSuccess = _databaseManager.Create(newEmployee);
+                isSuccess = _databaseManager.AddEmployee(employee);
             }
 
             if(isSuccess)

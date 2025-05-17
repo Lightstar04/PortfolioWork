@@ -57,7 +57,7 @@ namespace LMS.Data
             return employees;
         }
 
-        public bool Create(Employee employee)
+        public bool AddEmployee(Employee employee)
         {
             SqlConnection connection = new SqlConnection("Data Source=PAVILION;Initial Catalog=employee_management;Integrated Security=True;Trust Server Certificate=True");
 
@@ -113,9 +113,77 @@ namespace LMS.Data
             return false;
         }
 
-        public void UpdateEmployee(Employee employee)
+        public bool UpdateEmployee(Employee employee)
         {
+            int affectedRows = 0;
+            SqlConnection connection = new SqlConnection("Data Source=PAVILION;Initial Catalog=employee_management;Integrated Security=True;Trust Server Certificate=True");
 
+            try
+            {
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = $"UPDATE EMP SET" +
+                    $" Ename = @ename, Job = @job, " +
+                    $"Mgr = @mgr, Hiredate = @hiredate, " +
+                    $"Sal = @salary, Comm = @commission, Deptno = @deptno" +
+                    $" WHERE Empno = @empno";
+
+                command.Parameters.AddWithValue("@empno", employee.Empno);
+                command.Parameters.AddWithValue("@ename", employee.Ename);
+                command.Parameters.AddWithValue("@job", employee.Job);
+                command.Parameters.AddWithValue("@mgr", employee.Mgr == null ? DBNull.Value : employee.Mgr);
+                command.Parameters.AddWithValue("@hiredate", employee.HireDate.ToString("MM/dd/yyyy"));
+                command.Parameters.AddWithValue("@salary", employee.Salary);
+                command.Parameters.AddWithValue("@commission", employee.Comm == null ? DBNull.Value : employee.Comm);
+                command.Parameters.AddWithValue("@deptno", employee.Deptno);
+
+                affectedRows = command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    $"There was an error while updating employee: {employee.Ename}. Details: {e.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return affectedRows > 0;
+        }
+
+        public bool DeleteEmployee(decimal empno)
+        {
+            int affectedRows = 0;
+            SqlConnection connection = new SqlConnection("Data Source=PAVILION;Initial Catalog=employee_management;Integrated Security=True;Trust Server Certificate=True");
+
+            try
+            {
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = $"DELETE FROM EMP WHERE Empno = @empno";
+
+                command.Parameters.AddWithValue("@empno", empno);
+
+                affectedRows = command.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(
+                    $"There was an error while deleting employee. Details: {e.Message}",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return affectedRows > 0;
         }
     }
 }

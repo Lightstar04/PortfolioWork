@@ -28,11 +28,11 @@
             <TextBox x:Name="empnoInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
             <TextBox x:Name="enameInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
             <TextBox x:Name="jobInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
-            <TextBox x:Name="mgrInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <ComboBox x:Name="mgrComboBox" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
             <DatePicker x:Name="hiredateInput" FontSize="9" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
             <TextBox x:Name="salInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
             <TextBox x:Name="commInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
-            <TextBox x:Name="deptnoInput" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
+            <ComboBox x:Name="departmentsComboBox" Width="250" Height="20" Margin="5 10 0 0" HorizontalAlignment="Left" />
         </StackPanel>
         <Button Grid.ColumnSpan="2" 
                 VerticalAlignment="Bottom" 

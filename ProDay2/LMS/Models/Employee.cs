@@ -28,4 +28,9 @@ public class Employee
         Comm = comm;
         Deptno = deptno;
     }
+
+    public override string ToString()
+    {
+        return $"{Ename} ({Empno})";
+    }
 }

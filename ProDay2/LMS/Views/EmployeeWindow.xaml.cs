@@ -11,8 +11,8 @@ namespace LMS.Views
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-
         private readonly EmployeeManagement _databaseManager;
+
         public EmployeeWindow()
         {
             InitializeComponent();
@@ -43,6 +43,45 @@ namespace LMS.Views
             var dialog = new AddEmployeeDialog(employee);
             dialog.Owner = this;
             dialog.ShowDialog();
+
+            var employees = _databaseManager.GetEmployees();
+
+            EmployeeDataGrid.ItemsSource = null;
+            EmployeeDataGrid.ItemsSource = employees;
+        }
+
+        private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            if(EmployeeDataGrid.SelectedItem is not Employee selectedEmployee)
+            {
+                MessageBox.Show(
+                    "Please, select employee to delete",
+                    "Error",
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            var isConfirm = MessageBox.Show(
+                $"Are you sure to delete employee: {selectedEmployee.Ename}?",
+                "Confirm your action!",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question);
+
+            if(isConfirm != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            var result = _databaseManager.DeleteEmployee(selectedEmployee.Empno);
+            if (result)
+            {
+                var employees = _databaseManager.GetEmployees();
+
+                EmployeeDataGrid.ItemsSource = null;
+                EmployeeDataGrid.ItemsSource = employees;
+            }
+
         }
     }
 }

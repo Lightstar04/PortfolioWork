@@ -8,12 +8,15 @@
         Title="Learning Management System"
         Height="500" Width="1200"
         WindowStartupLocation="CenterScreen"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Background="WhiteSmoke">
     <StackPanel VerticalAlignment="Center">
-        <Button Content="StackPanel" Width="150" Height="50" Click="Stack_Click"/>
-        <Button Content="Grid" Width="150" Height="50" Click="Grid_Click"/>
-        <Button Content="DataGrid" Width="150" Height="50" Click="DataGrid_Click"/>
-        <Button Content="InputWindow" Width="150" Height="50" Click="InputWindow_Click"/>
-        <Button Content="Employees" Width="150" Height="50" Click="EmployeesWindow_Click"/>
+        <Button 
+            Content="Employees" 
+            Width="200" 
+            Height="100"
+            Background="BlueViolet"
+            Foreground="AntiqueWhite"
+            Click="EmployeesWindow_Click"/>
     </StackPanel>
 </Window>
