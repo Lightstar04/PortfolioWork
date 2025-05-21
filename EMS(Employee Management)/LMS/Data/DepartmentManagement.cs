@@ -6,42 +6,80 @@ namespace LMS.Data;
 
 internal class DepartmentManagement
 {
+    private readonly DatabaseService _databaseService;
+
+    public DepartmentManagement()
+    {
+        _databaseService = new DatabaseService();
+    }
+
     public List<Department> GetDepartments()
     {
-        SqlConnection connection = new SqlConnection("Data Source=PAVILION;Initial Catalog=employee_management;Integrated Security=True;Trust Server Certificate=True");
+        SqlCommand command = new SqlCommand();
+
+        command.CommandText = "SELECT * FROM DEPT";
+
+        var departments = _databaseService.ExecuteReader(command, DataConverter);
+
+        return departments;
+
+    }
+
+    public bool AddDepartment(Department department)
+    {
+        SqlCommand command = new SqlCommand();
+        command.CommandText = $"INSERT INTO DEPT(Deptno, Dname, Loc)" +
+            $"VALUES(@deptno, @dname, @loc)";
+
+        command.Parameters.AddWithValue("@deptno", department.Deptno);
+        command.Parameters.AddWithValue("@dname", department.Dname);
+        command.Parameters.AddWithValue("@loc", department.Loc);
+
+        var affectedRows = _databaseService.ExecuteNonQuery(command);
+
+        return affectedRows > 0;
+    }
+
+    public bool UpdateDepartment(Department department)
+    {
+        SqlCommand command = new SqlCommand();
+        command.CommandText = $"UPDATE DEPT SET" +
+            $" Dname = @dname, Loc = @loc" +
+            $" WHERE Deptno = @deptno";
+
+        command.Parameters.AddWithValue("@deptno", department.Deptno);
+        command.Parameters.AddWithValue("@dname", department.Dname);
+        command.Parameters.AddWithValue("@loc", department.Loc);
+
+        var affectedRows = _databaseService.ExecuteNonQuery(command);
+
+        return affectedRows > 0;
+    }
+
+    public bool DeleteDepartment(decimal deptno)
+    {
+        SqlCommand command = new SqlCommand();
+        command.CommandText = "DELETE FROM DEPT WHERE Deptno = @deptno";
+
+        command.Parameters.AddWithValue("@deptno", deptno);
+
+        var affectedRows = _databaseService.ExecuteNonQuery(command);
+        
+        return affectedRows > 0;
+    }
+
+    public List<Department> DataConverter(SqlDataReader reader)
+    {
         List<Department> departments = new List<Department>();
 
-        try
+        while (reader.Read())
         {
-            connection.Open();
+            decimal deptno = reader.GetDecimal(0);
+            string dname = reader.GetString(1);
+            string loc = reader.GetString(2);
 
-            SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT * FROM DEPT" +
-                " ORDER BY DNAME, LOC";
-
-            var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                decimal deptno = reader.GetDecimal(0);
-                string dname = reader.GetString(1);
-                string loc = reader.GetString(2);
-
-                var department = new Department(deptno, dname, loc);
-                departments.Add(department);
-            }
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                $"There was an error while loading departments. Details: {ex.Message}",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-        }
-        finally
-        {
-            connection.Close();
+            var department = new Department(deptno, dname, loc);
+            departments.Add(department);
         }
 
         return departments;

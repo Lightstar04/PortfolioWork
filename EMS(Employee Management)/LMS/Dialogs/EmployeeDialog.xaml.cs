@@ -7,13 +7,13 @@ namespace LMS.Dialogs
     /// <summary>
     /// Interaction logic for AddEmployeeDialog.xaml
     /// </summary>
-    public partial class AddEmployeeDialog : Window
+    public partial class EmployeeDialog : Window
     {
         private readonly EmployeeManagement _databaseManager;
         private readonly DepartmentManagement _departmentManager;
         private readonly bool isEditingMode;
 
-        public AddEmployeeDialog()
+        public EmployeeDialog()
         {
             InitializeComponent();
             
@@ -29,11 +29,15 @@ namespace LMS.Dialogs
             var managers = _databaseManager.GetEmployees();
             mgrComboBox.ItemsSource = managers;
             mgrComboBox.SelectedIndex = 0;
+
+            Title = "Add Employee";
         }
 
-        public AddEmployeeDialog(Employee employee)
+        public EmployeeDialog(Employee employee)
             : this()
         {
+            Title = "Update Employee";
+
             isEditingMode = true;
             empnoInput.IsEnabled = false;
 
@@ -94,10 +98,25 @@ namespace LMS.Dialogs
             if (isEditingMode)
             {
                 isSuccess = _databaseManager.UpdateEmployee(employee);
+
+                if(isSuccess)
+                {
+                    MessageBox.Show(
+                        "Employee was updated successfully",
+                        "Success",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
             }
             else
             {
                 isSuccess = _databaseManager.AddEmployee(employee);
+
+                MessageBox.Show(
+                        "Employee was added successfully",
+                        "Success",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
             }
 
             if(isSuccess)

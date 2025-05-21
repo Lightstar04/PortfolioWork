@@ -1,6 +1,6 @@
 ﻿namespace LMS.Models;
 
-class Department
+public class Department
 {
     public decimal Deptno { get; set; }
     public string Dname { get; set; }

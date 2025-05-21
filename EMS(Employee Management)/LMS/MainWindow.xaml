@@ -11,12 +11,20 @@
         WindowState="Maximized"
         Background="WhiteSmoke">
     <StackPanel VerticalAlignment="Center">
-        <Button 
-            Content="Employees" 
-            Width="200" 
+        <Button
+            Content="Employees"
+            Width="200"
             Height="100"
-            Background="BlueViolet"
+            Background="CornflowerBlue"
             Foreground="AntiqueWhite"
             Click="EmployeesWindow_Click"/>
+        <Button 
+            Content="Departments" 
+            Width="200" 
+            Height="100" 
+            Background="CornflowerBlue"
+            Foreground="AntiqueWhite" 
+            Click="DepartmentsWindow_Click" 
+            Margin="0 20 0 0" />
     </StackPanel>
 </Window>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="LMS.Dialogs.DepartmentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LMS.Dialogs"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="Add Department"
+        Height="375" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    Margin="0 25 0 0">
+            <TextBlock Text="Department number: "
+                       Margin="0 11 0 0" />
+            <TextBlock Text="Department name: "
+                       Margin="0 14 0 0"
+                       HorizontalAlignment="Right" />
+            <TextBlock Text="Location: "
+                       Margin="0 14 0 0"
+                       HorizontalAlignment="Right" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0 25 0 0">
+            <TextBox x:Name="deptnoInput"
+                     Width="250"
+                     Height="20"
+                     Margin="5 10 0 0"
+                     HorizontalAlignment="Left" />
+            <TextBox x:Name="dnameInput"
+                     Width="250"
+                     Height="20"
+                     Margin="5 10 0 0"
+                     HorizontalAlignment="Left" />
+            <TextBox x:Name="locInput"
+                     Width="250"
+                     Height="20"
+                     Margin="5 10 0 0"
+                     HorizontalAlignment="Left" />
+        </StackPanel>
+        <Button Grid.ColumnSpan="2"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Width="150"
+                Height="20"
+                Content="Save"
+                Background="Green"
+                Foreground="AliceBlue"
+                Margin="0 0 0 25"
+                Click="Save_Click" />
+    </Grid>
+</Window>

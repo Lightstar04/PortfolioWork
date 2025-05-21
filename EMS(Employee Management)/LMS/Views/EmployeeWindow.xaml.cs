@@ -4,84 +4,85 @@ using LMS.Models;
 using System.Windows;
 using System.Windows.Input;
 
-namespace LMS.Views
+namespace LMS.Views;
+
+/// <summary>
+/// Interaction logic for EmployeeWindow.xaml
+/// </summary>
+public partial class EmployeeWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for EmployeeWindow.xaml
-    /// </summary>
-    public partial class EmployeeWindow : Window
+    private readonly EmployeeManagement _databaseManager;
+
+    public EmployeeWindow()
     {
-        private readonly EmployeeManagement _databaseManager;
+        InitializeComponent();
 
-        public EmployeeWindow()
+        _databaseManager = new EmployeeManagement();
+        var employees = _databaseManager.GetEmployees();
+
+        EmployeeDataGrid.ItemsSource = employees;
+
+    }
+
+    private void AddEmployee_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new EmployeeDialog();
+        dialog.Owner = this;
+        dialog.ShowDialog();
+
+        RefreshData();
+    }
+
+    private void EmployeeDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        var employee = EmployeeDataGrid.SelectedItem as Employee;
+
+        if(employee  != null)
         {
-            InitializeComponent();
-
-            _databaseManager = new EmployeeManagement();
-            var employees = _databaseManager.GetEmployees();
-
-            EmployeeDataGrid.ItemsSource = employees;
-
-        }
-
-        private void AddEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new AddEmployeeDialog();
+            var dialog = new EmployeeDialog(employee);
             dialog.Owner = this;
             dialog.ShowDialog();
 
-            var employees = _databaseManager.GetEmployees();
-
-            EmployeeDataGrid.ItemsSource = null;
-            EmployeeDataGrid.ItemsSource = employees;
+            RefreshData();
         }
+    }
 
-        private void EmployeeDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
+    {
+        if(EmployeeDataGrid.SelectedItem is not Employee selectedEmployee)
         {
-            var employee = EmployeeDataGrid.SelectedItem as Employee;
-
-            var dialog = new AddEmployeeDialog(employee);
-            dialog.Owner = this;
-            dialog.ShowDialog();
-
-            var employees = _databaseManager.GetEmployees();
-
-            EmployeeDataGrid.ItemsSource = null;
-            EmployeeDataGrid.ItemsSource = employees;
+            MessageBox.Show(
+                "Please, select an employee to delete",
+                "Error",
+                MessageBoxButton.OK, 
+                MessageBoxImage.Error);
+            return;
         }
 
-        private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
+        var isConfirm = MessageBox.Show(
+            $"Are you sure to delete employee: {selectedEmployee.Ename}?",
+            "Confirm your action!",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if(isConfirm != MessageBoxResult.Yes)
         {
-            if(EmployeeDataGrid.SelectedItem is not Employee selectedEmployee)
-            {
-                MessageBox.Show(
-                    "Please, select employee to delete",
-                    "Error",
-                    MessageBoxButton.OK, 
-                    MessageBoxImage.Error);
-                return;
-            }
-
-            var isConfirm = MessageBox.Show(
-                $"Are you sure to delete employee: {selectedEmployee.Ename}?",
-                "Confirm your action!",
-                MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Question);
-
-            if(isConfirm != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            var result = _databaseManager.DeleteEmployee(selectedEmployee.Empno);
-            if (result)
-            {
-                var employees = _databaseManager.GetEmployees();
-
-                EmployeeDataGrid.ItemsSource = null;
-                EmployeeDataGrid.ItemsSource = employees;
-            }
-
+            return;
         }
+
+        var result = _databaseManager.DeleteEmployee(selectedEmployee.Empno);
+        if (result)
+        {
+            RefreshData();
+        }
+
+    }
+
+    private void RefreshData()
+    {
+        var employees = _databaseManager.GetEmployees();
+
+        EmployeeDataGrid.ItemsSource = null;
+        EmployeeDataGrid.ItemsSource = employees;
     }
 }
