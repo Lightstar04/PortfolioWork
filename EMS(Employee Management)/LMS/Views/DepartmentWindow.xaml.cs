@@ -3,6 +3,8 @@ using LMS.Dialogs;
 using LMS.Models;
 using System.Windows;
 
+using MessageBox = LMS.Extensions.MessageBoxExtensions;
+
 namespace LMS.Views;
 
 /// <summary>
@@ -50,37 +52,43 @@ public partial class DepartmentWindow : Window
     {
         if(DepartmentDataGrid.SelectedItem is not Department selectedDepartment)
         {
-            MessageBox.Show(
-                "Please, select a department to delete!",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            MessageBox.ShowError("Please, select a department to delete");
             return;
         }
 
-        var isConfirm = MessageBox.Show(
-            $"Are you sure to delete this department: {selectedDepartment.Dname}",
-            "Confirm your action!",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question);
+        var isConfirm = MessageBox.ShowConfirmation("Are you sure to delete this department");
 
         if(isConfirm != MessageBoxResult.Yes)
         {
             return;
         }
 
-        var result = _departmentManager.DeleteDepartment(selectedDepartment.Deptno);
-        if (result)
+        try
         {
-            RefreshData();
+            var result = _departmentManager.DeleteDepartment(selectedDepartment.Number);
+            if (result)
+            {
+                RefreshData();
+            }
+        }
+        catch(Exception ex)
+        {
+            MessageBox.ShowError($"There was an error while deleting a department. \nDetails: {ex.Message}");
         }
     }
 
     private void RefreshData()
     {
-        var departments = _departmentManager.GetDepartments();
+        try
+        {
+            var departments = _departmentManager.GetDepartments();
 
-        DepartmentDataGrid.ItemsSource = null;
-        DepartmentDataGrid.ItemsSource = departments;
+            DepartmentDataGrid.ItemsSource = null;
+            DepartmentDataGrid.ItemsSource = departments;
+        }
+        catch(Exception ex)
+        {
+            MessageBox.ShowError($"There was an error while loading data. \nDetails: {ex.Message}");
+        }
     }
 }

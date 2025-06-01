@@ -1,26 +1,31 @@
-﻿namespace LMS.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LMS.Models;
 
 public class Department
 {
-    public decimal Deptno { get; set; }
-    public string Dname { get; set; }
-    public string Loc {  get; set; }
+    [Key]
+    public decimal Number { get; set; }
+    public string Name { get; set; }
+    public string Location {  get; set; }
+
+    public virtual ICollection<Employee> Employees { get; set; }
 
     public Department()
     {
-        Dname = string.Empty;
-        Loc = string.Empty;
+        Name = string.Empty;
+        Location = string.Empty;
     }
 
     public Department(decimal deptno, string dname, string loc)
     {
-        Deptno = deptno;
-        Dname = dname;
-        Loc = loc;
+        Number = deptno;
+        Name = dname;
+        Location = loc;
     }
 
     public override string ToString()
     {
-        return $"{Dname} ({Loc})";
+        return $"{Name} ({Location})";
     }
 }

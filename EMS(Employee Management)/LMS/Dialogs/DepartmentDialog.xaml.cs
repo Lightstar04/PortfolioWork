@@ -27,9 +27,9 @@ public partial class DepartmentDialog : Window
         isEditingMode = true;
         deptnoInput.IsEnabled = false;
 
-        deptnoInput.Text = department.Deptno.ToString();
-        dnameInput.Text = department.Dname.ToString();
-        locInput.Text = department.Loc.ToString();
+        deptnoInput.Text = department.Number.ToString();
+        dnameInput.Text = department.Name.ToString();
+        locInput.Text = department.Location.ToString();
 
     }
 

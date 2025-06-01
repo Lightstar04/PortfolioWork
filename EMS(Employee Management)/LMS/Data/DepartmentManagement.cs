@@ -1,69 +1,47 @@
 ﻿using LMS.Models;
 using Microsoft.Data.SqlClient;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace LMS.Data;
 
 internal class DepartmentManagement
 {
-    private readonly DatabaseService _databaseService;
+    private readonly EmployeeManagementDbContext _context;
 
     public DepartmentManagement()
     {
-        _databaseService = new DatabaseService();
+        _context = new EmployeeManagementDbContext();
     }
 
-    public List<Department> GetDepartments()
-    {
-        SqlCommand command = new SqlCommand();
-
-        command.CommandText = "SELECT * FROM DEPT";
-
-        var departments = _databaseService.ExecuteReader(command, DataConverter);
-
-        return departments;
-
-    }
+    public List<Department> GetDepartments() => _context.Departments.ToList();
 
     public bool AddDepartment(Department department)
     {
-        SqlCommand command = new SqlCommand();
-        command.CommandText = $"INSERT INTO DEPT(Deptno, Dname, Loc)" +
-            $"VALUES(@deptno, @dname, @loc)";
-
-        command.Parameters.AddWithValue("@deptno", department.Deptno);
-        command.Parameters.AddWithValue("@dname", department.Dname);
-        command.Parameters.AddWithValue("@loc", department.Loc);
-
-        var affectedRows = _databaseService.ExecuteNonQuery(command);
-
+        _context.Departments.Add(department);
+        var affectedRows = _context.SaveChanges();
         return affectedRows > 0;
     }
 
     public bool UpdateDepartment(Department department)
     {
-        SqlCommand command = new SqlCommand();
-        command.CommandText = $"UPDATE DEPT SET" +
-            $" Dname = @dname, Loc = @loc" +
-            $" WHERE Deptno = @deptno";
-
-        command.Parameters.AddWithValue("@deptno", department.Deptno);
-        command.Parameters.AddWithValue("@dname", department.Dname);
-        command.Parameters.AddWithValue("@loc", department.Loc);
-
-        var affectedRows = _databaseService.ExecuteNonQuery(command);
+        _context.Departments.Update(department);
+        var affectedRows = _context.SaveChanges();
 
         return affectedRows > 0;
     }
 
     public bool DeleteDepartment(decimal deptno)
     {
-        SqlCommand command = new SqlCommand();
-        command.CommandText = "DELETE FROM DEPT WHERE Deptno = @deptno";
+        var department = _context.Departments.FirstOrDefault(x => x.Number == deptno);
 
-        command.Parameters.AddWithValue("@deptno", deptno);
+        if(department is null)
+        {
+            return false;
+        }
 
-        var affectedRows = _databaseService.ExecuteNonQuery(command);
+        _context.Departments.Remove(department);
+        var affectedRows = _context.SaveChanges();
         
         return affectedRows > 0;
     }

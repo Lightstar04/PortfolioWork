@@ -1,8 +1,11 @@
-﻿namespace LMS.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-class Salgrade
+namespace LMS.Models;
+
+public class Salgrade
 {
+    [Key]
     public int Grade {  get; set; }
-    public decimal Losal {  get; set; }
-    public decimal Hisal {  get; set; }
+    public decimal LowSalary {  get; set; }
+    public decimal HighSalary {  get; set; }
 }

@@ -37,9 +37,17 @@
             </StackPanel>
         </StackPanel>
         <DataGrid Grid.Row="1" 
-                  x:Name="DepartmentDataGrid"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  MouseDoubleClick="DepartmentDataGrid_MouseDoubleClick"/>
+                  x:Name="DepartmentDataGrid" 
+                  VerticalAlignment="Top" 
+                  HorizontalAlignment="Center" 
+                  MouseDoubleClick="DepartmentDataGrid_MouseDoubleClick"
+                  AutoGenerateColumns="False"
+                  Margin="0 100 0 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

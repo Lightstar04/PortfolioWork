@@ -1,15 +1,25 @@
-﻿namespace LMS.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace LMS.Models;
 
 public class Employee
 {
-    public decimal Empno { get; set; }
-    public string Ename { get; set; }
+    [Key]
+    public decimal Number { get; set; }
+    public string Name { get; set; }
     public string Job { get; set; }
-    public decimal? Mgr { get; set; }
     public DateTime HireDate { get; set; }
     public decimal Salary { get; set; }
-    public decimal? Comm {  get; set; }
-    public decimal Deptno {  get; set; }
+    public decimal? Commission {  get; set; }
+
+    [ForeignKey(nameof(DepartmentNumber))]
+    public virtual Department Department { get; set; }
+    public decimal DepartmentNumber {  get; set; }
+
+    [ForeignKey(nameof(ManagerNumber))]
+    public virtual Employee? Manager {  get; set; }
+    public decimal? ManagerNumber { get; set; }
 
     public Employee() { }
 
@@ -19,18 +29,18 @@ public class Employee
         DateTime hireDate, decimal salary, 
         decimal? comm, decimal deptno)
     {
-        Empno = empno;
-        Ename = ename;
+        Number = empno;
+        Name = ename;
         Job = job;
-        Mgr = mgr;
+        ManagerNumber = mgr;
         HireDate = hireDate;
         Salary = salary;
-        Comm = comm;
-        Deptno = deptno;
+        Commission = comm;
+        DepartmentNumber = deptno;
     }
 
     public override string ToString()
     {
-        return $"{Ename} ({Empno})";
+        return $"{Name} ({Number})";
     }
 }
