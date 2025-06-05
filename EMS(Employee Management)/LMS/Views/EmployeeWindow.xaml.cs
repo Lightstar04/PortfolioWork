@@ -43,7 +43,7 @@ public partial class EmployeeWindow : Window
             var dialog = new EmployeeDialog(employee);
             dialog.Owner = this;
             dialog.ShowDialog();
-
+            
             RefreshData();
         }
     }

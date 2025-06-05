@@ -17,7 +17,7 @@ class EmployeeManagement
 
     // Eager loading
 
-    public List<Employee> GetEmployees(string searchString = "", decimal? salary = null)
+    public List<Employee> GetEmployees()
     {
         var employees = _context.Employees
             .Include(e => e.Department)
