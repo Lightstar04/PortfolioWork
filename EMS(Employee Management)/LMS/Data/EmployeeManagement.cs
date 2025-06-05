@@ -2,6 +2,7 @@
 using LMS.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace LMS.Data;
 
@@ -14,7 +15,33 @@ class EmployeeManagement
         _context = new EmployeeManagementDbContext();
     }
 
-    public List<Employee> GetEmployees() => _context.Employees.Include(x => x.Department).Include(x => x.Manager).ToList();
+    // Eager loading
+
+    public List<Employee> GetEmployees(string searchString = "", decimal? salary = null)
+    {
+        var employees = _context.Employees
+            .Include(e => e.Department)
+            .Include(d => d.Manager)
+            .ToList();
+
+        return employees;
+    }
+
+    // Lazy loading
+
+    //public List<Employee> GetEmployeesLazy()
+    //{
+    //    var employees = _context.Employees.ToList();
+    //    foreach (var employee in employees)
+    //    {
+    //        MessageBox.Show(employee.Name);  // Loads only employee's properties
+    //        MessageBox.Show(employee.Department.Name);  // Loads only employee and department's properties
+    //        MessageBox.Show(employee.Department.City.Name); // Loads only city properties
+    //        MessageBox.Show(employee.Department.City.Country.Name) // Loads only country's properties
+    //    }
+
+    //    return employees;
+    //}
 
     public bool AddEmployee(Employee employee)
     {

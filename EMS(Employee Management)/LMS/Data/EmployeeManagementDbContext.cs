@@ -11,6 +11,7 @@ public class EmployeeManagementDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        optionsBuilder.UseLazyLoadingProxies();
         optionsBuilder.UseSqlServer("Data Source=PAVILION;Initial Catalog=employee_management_ef;Integrated Security=True;Trust Server Certificate=True");
         base.OnConfiguring(optionsBuilder);
     }
