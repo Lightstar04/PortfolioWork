@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hospital_Management.Views.Dialogs"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Style="{StaticResource MaterialDesignWindow}"
         WindowStyle="SingleBorderWindow"
@@ -11,41 +12,87 @@
         Title="{Binding Title}"
         WindowStartupLocation="CenterScreen"
         Height="600"
-        Width="550">
+        Width="600">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-        <TextBox
-            Grid.Row="0" Grid.Column="0"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            Height="40"
-            Margin="15, 0"
-            Padding="10"/>
-        <TextBox
-            Grid.Row="0" Grid.Column="1"
-            Style="{StaticResource MaterialDesignOutlinedTextBox}"
-            Height="40"
-            Margin="15, 0"
-            Padding="10" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            Content="Enter Patient Details"
+            FontSize="30"
+            FontWeight="Bold"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
         <TextBox
             Grid.Row="1" Grid.Column="0"
+            Grid.ColumnSpan="3"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="40"
-            Margin="15, 0"
-            Padding="10" />
+            md:HintAssist.Hint="Enter first name"
+            Margin="15 0"
+            Padding="10"/>
         <TextBox
-            Grid.Row="1" Grid.Column="1"
+            Grid.Row="1" Grid.Column="3"
+            Grid.ColumnSpan="3"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="40"
-            Margin="15, 0"
+            md:HintAssist.Hint="Enter last name"
+            Margin="15 0"
             Padding="10" />
+        <TextBox Grid.Row="2" Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Height="40"
+                 md:HintAssist.Hint="Enter phone number"
+                 Margin="15 0"
+                 Padding="10" />
+        <DatePicker
+            Grid.Row="2" Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+            Height="40"
+            md:HintAssist.Hint="Choose birthdate"
+            Margin="15 0"
+            Padding="10"/>
+        <ComboBox Grid.Row="2" Grid.Column="4"
+                  Grid.ColumnSpan="2"
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  Height="40"
+                  md:HintAssist.Hint="Select gender"
+                  Margin="15  0"
+                  Padding="10"/>
+        <Button
+            Content="Cancel"
+            Click="Cancel_Click"
+            Grid.ColumnSpan="3"
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="20 0"
+            Width="200"
+            Style="{StaticResource MaterialDesignPaperDarkButton}"/>
+        <Button
+            Content="Save"
+            Click="Save_Click"
+            Grid.ColumnSpan="3"
+            Grid.Row="3"
+            Grid.Column="3"
+            Margin="20 0"
+            Width="200"
+            Background="#2ec96f"
+            BorderBrush="#2ec96f"/>
     </Grid>
 </Window>

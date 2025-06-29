@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         Style="{StaticResource MaterialDesignWindow}"
-        Title="MainWindow"
+        Title="Hospital"
         Height="450" Width="800">
     <Grid>
         <materialDesign:Card>

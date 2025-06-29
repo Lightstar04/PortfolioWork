@@ -23,8 +23,20 @@ namespace Hospital_Management.ViewModels
             }
         }
 
+        private Patient _selectedPatient;
+        public Patient SelectedPatient
+        {
+            get => _selectedPatient;
+            set => SetProperty(ref _selectedPatient, value);
+        }
+
         public ICommand AddCommand { get; }
+        public ICommand ShowDetailsCommand { get; }
+        public ICommand EditCommand { get; }
+        public ICommand DeleteCommand { get; }
+
         public List<Patient> patientsList;
+
         public ObservableCollection<Patient> Patients { get; set; }
 
         public PatientsViewModel()
@@ -32,7 +44,11 @@ namespace Hospital_Management.ViewModels
             _patientService = new PatientService();
             Patients = new ObservableCollection<Patient>();
             patientsList = new List<Patient>();
+
             AddCommand = new Command(OnAdd);
+            ShowDetailsCommand = new Command(OnShowDetails);
+            EditCommand = new Command<Patient>(OnEdit);
+            DeleteCommand = new Command<Patient>(OnDelete);
 
             Load();
         }
@@ -65,6 +81,26 @@ namespace Hospital_Management.ViewModels
         {
             var dialog = new PatientDialog();
             dialog.ShowDialog();
+        }
+
+        private void OnShowDetails()
+        {
+            if(SelectedPatient is null)
+            {
+                return;
+            }
+            var dialog = new PatientDetailsDialog(SelectedPatient);
+            dialog.ShowDialog();
+        }
+
+        private void OnEdit(Patient patient)
+        {
+
+        }
+
+        private void OnDelete(Patient patient)
+        {
+
         }
     }
 }

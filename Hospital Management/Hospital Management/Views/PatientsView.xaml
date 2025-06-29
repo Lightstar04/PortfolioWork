@@ -39,27 +39,53 @@
             <DataGrid
                 AutoGenerateColumns="False"
                 IsReadOnly="True"
-                ItemsSource="{Binding Patients}">
+                ItemsSource="{Binding Patients}"
+                SelectedItem="{Binding SelectedPatient}">
+                <DataGrid.InputBindings>
+                    <MouseBinding Command="{Binding ShowDetailsCommand}" Gesture="LeftDoubleClick"/>
+                </DataGrid.InputBindings>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Header="Edit"
+                            Foreground="YellowGreen"
+                            Command="{Binding EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon
+                                    Kind="Pencil" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            Header="Delete"
+                            Foreground="red"
+                            Command="{Binding DeleteCommand}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Trash" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Binding="{Binding FirstName}"
-                        Header="First name" 
+                        Header="First name"
                         Width="150"/>
                     <DataGridTextColumn
                         Binding="{Binding LastName}"
-                        Header="Last name" 
+                        Header="Last name"
                         Width="150"/>
                     <DataGridTextColumn
                         Binding="{Binding PhoneNumber}"
-                        Header="Phone number" 
+                        Header="Phone number"
                         Width="150" />
                     <DataGridTextColumn
                         Binding="{Binding BirthDate, StringFormat='{}{0:dd-MMM-yyyy}'}"
-                        Header="Birthdate" 
+                        Header="Birthdate"
                         Width="150" />
                     <DataGridTextColumn
-                        Binding="{Binding Gender}" 
-                        Header="Gender" 
+                        Binding="{Binding Gender}"
+                        Header="Gender"
                         Width="150" />
                 </DataGrid.Columns>
             </DataGrid>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hospital_Management.Models;
+using Hospital_Management.ViewModels.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,15 @@ namespace Hospital_Management.Views.Dialogs
         public PatientDialog()
         {
             InitializeComponent();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

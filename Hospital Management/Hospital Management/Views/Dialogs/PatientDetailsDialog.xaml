@@ -1,0 +1,100 @@
+﻿<Window x:Class="Hospital_Management.Views.Dialogs.PatientDetailsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Hospital_Management.Views.Dialogs"
+        mc:Ignorable="d"
+        Title="Patient Details"
+        WindowStartupLocation="CenterScreen"
+        Height="600" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0">
+            <TabItem Header="Details">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Height="40"
+                        md:HintAssist.Hint="Firstname"
+                        Text="{Binding FirstName}"
+                        Margin="15 30 15 0"
+                        Padding="10" />
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="3"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Height="40"
+                        md:HintAssist.Hint="Lastname"
+                        Text="{Binding LastName}"
+                        Margin="15 30 15 0"
+                        Padding="10" />
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Height="40"
+                        md:HintAssist.Hint="Phone number"
+                        Text="{Binding PhoneNumber}"
+                        Margin="15 30 15 0"
+                        Padding="10" />
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Height="40"
+                        md:HintAssist.Hint="Birthdate"
+                        Text="{Binding BirthDate}"
+                        Margin="15 30 15 0"
+                        Padding="10" />
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Height="40"
+                        md:HintAssist.Hint="Gender"
+                        Text="{Binding Gender}"
+                        Margin="15 30 15 0"
+                        Padding="10" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Visits">
+
+            </TabItem>
+        </TabControl>
+        <Button
+            Grid.Row="2"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Style="{StaticResource MaterialDesignPaperDarkButton}"
+            Content="Close"
+            Click="Close_Click"
+            HorizontalAlignment="Center"
+            Margin="20 0 20 55"
+            Width="100" />
+    </Grid>
+</Window>
