@@ -68,6 +68,10 @@
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn
+                        Binding="{Binding Id}"
+                        Header="Id"
+                        Width="75"/>
+                    <DataGridTextColumn
                         Binding="{Binding FirstName}"
                         Header="First name"
                         Width="150"/>

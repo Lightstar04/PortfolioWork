@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Hospital_Management.Views.VisitsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Hospital_Management.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Grid.Column="1"
+            Command="{Binding AddCommand}"
+            Content="Add+ "
+            Width="250"
+            Margin="0 60 50 0" />
+        <md:Card
+            Margin="50 25 50 25"
+            Grid.Row="1"
+            Grid.ColumnSpan="2">
+            <DataGrid
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                ItemsSource="{Binding Visits}"
+                SelectedItem="{Binding SelectedVisit}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Binding="{Binding Id}"
+                        Header="Id"
+                        Width="75" />
+                    <DataGridTextColumn
+                        Binding="{Binding Appointment.Date}"
+                        Header="Date"
+                        Width="125" />
+                    <DataGridTextColumn
+                        Binding="{Binding Appointment.Time}"
+                        Header="Time"
+                        Width="125" />
+                    <DataGridTextColumn
+                        Binding="{Binding TotalDue}"
+                        Header="Total Due"
+                        Width="150" />
+                    <DataGridTextColumn
+                        Binding="{Binding Comments}"
+                        Header="Comments"
+                        Width="Auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </md:Card>
+    </Grid>
+</UserControl>

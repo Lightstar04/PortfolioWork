@@ -14,5 +14,10 @@
         {
             Appointments = new List<Appointment>();
         }
+
+        public override string ToString()
+        {
+            return $"[{Id}] {FirstName} {LastName}";
+        }
     }
 }

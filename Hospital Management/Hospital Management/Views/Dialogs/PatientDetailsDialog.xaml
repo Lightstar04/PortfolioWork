@@ -7,8 +7,9 @@
         xmlns:local="clr-namespace:Hospital_Management.Views.Dialogs"
         mc:Ignorable="d"
         Title="Patient Details"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Height="600" Width="600">
+        Height="700" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -36,6 +37,7 @@
                         Grid.ColumnSpan="3"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Height="40"
+                        IsReadOnly="True"
                         md:HintAssist.Hint="Firstname"
                         Text="{Binding FirstName}"
                         Margin="15 30 15 0"
@@ -46,6 +48,7 @@
                         Grid.ColumnSpan="3"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Height="40"
+                        IsReadOnly="True"
                         md:HintAssist.Hint="Lastname"
                         Text="{Binding LastName}"
                         Margin="15 30 15 0"
@@ -56,6 +59,7 @@
                         Grid.ColumnSpan="2"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Height="40"
+                        IsReadOnly="True"
                         md:HintAssist.Hint="Phone number"
                         Text="{Binding PhoneNumber}"
                         Margin="15 30 15 0"
@@ -66,6 +70,7 @@
                         Grid.ColumnSpan="2"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Height="40"
+                        IsReadOnly="True"
                         md:HintAssist.Hint="Birthdate"
                         Text="{Binding BirthDate}"
                         Margin="15 30 15 0"
@@ -76,14 +81,106 @@
                         Grid.ColumnSpan="2"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Height="40"
+                        IsReadOnly="True"
                         md:HintAssist.Hint="Gender"
                         Text="{Binding Gender}"
                         Margin="15 30 15 0"
                         Padding="10" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Visits">
-
+            <TabItem Header="Appointments">
+                <StackPanel>
+                    <Label
+                        Content="{Binding AppointmentsTitle}"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        Margin="0 50 0 0"/>
+                    <md:Card
+                        Margin="25">
+                        <DataGrid
+                            ItemsSource="{Binding Appointments}"
+                            Margin="0 25 0 0"
+                            CanUserResizeColumns="False"
+                            CanUserResizeRows="False"
+                            AutoGenerateColumns="False"
+                            IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Header="Id"
+                                    Binding="{Binding Id}"
+                                    Width="75" />
+                                <DataGridTextColumn
+                                    Header="Doctor"
+                                    Binding="{Binding Doctor}"
+                                    Width="200"/>
+                                <DataGridTextColumn
+                                    Header="Status"
+                                    Binding="{Binding AppointmentStatus}"
+                                    Width="150"/>
+                                <DataGridTextColumn
+                                    Header="Date"
+                                    Binding="{Binding Date}"
+                                    Width="125"/>
+                                <DataGridTextColumn
+                                    Header="Time"
+                                    Binding="{Binding Time}"
+                                    Width="125"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </md:Card>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="History">
+                <StackPanel>
+                    <Label
+                        Content="{Binding HistoryLabel}"
+                        HorizontalAlignment="Center"
+                        Margin="25"
+                        FontWeight="Bold"
+                        FontSize="20"/>
+                    <md:Card
+                        Margin="50 25 50 25">
+                        <DataGrid
+                            AutoGenerateColumns="False"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Visits}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Binding="{Binding Id}"
+                                    Header="Id"
+                                    Width="75" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Appointment.Date}"
+                                    Header="Date"
+                                    Width="125" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Appointment.Time}"
+                                    Header="Time"
+                                    Width="125" />
+                                <DataGridTextColumn
+                                    Binding="{Binding Appointment.Doctor}"
+                                    Header="Doctor"
+                                    Width="Auto" />
+                                <DataGridTextColumn
+                                    Binding="{Binding TotalDue, StringFormat=N2}"
+                                    Header="Total Due"
+                                    Width="150" />
+                                <DataGridTemplateColumn Width="3*" Header="Comments">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding CommentsShort}">
+                                                <Label.ToolTip>
+                                                    <ToolTip Content="{Binding Comments}"/>
+                                                </Label.ToolTip>
+                                            </Label>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </md:Card>
+                </StackPanel>
             </TabItem>
         </TabControl>
         <Button

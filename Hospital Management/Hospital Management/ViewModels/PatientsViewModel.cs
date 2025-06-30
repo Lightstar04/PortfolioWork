@@ -1,9 +1,11 @@
-﻿using Hospital_Management.Models;
+﻿using Hospital_Management.Extensions;
+using Hospital_Management.Models;
 using Hospital_Management.Services;
 using Hospital_Management.Views.Dialogs;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Hospital_Management.ViewModels
@@ -95,12 +97,21 @@ namespace Hospital_Management.ViewModels
 
         private void OnEdit(Patient patient)
         {
-
+            var dialog = new PatientUpdateDialog(patient);
+            dialog.ShowDialog();
         }
 
         private void OnDelete(Patient patient)
         {
+            var result = MessageBoxExtension.QuestionMessage($"Are you sure to delete: {patient.FirstName} {patient.LastName}");
 
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            _patientService.Delete(patient);
+
+            MessageBoxExtension.SuccessMessage("Patient was removed successfully");
         }
     }
 }

@@ -19,7 +19,7 @@
         <TextBox Grid.Column="0"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 materialDesign:HintAssist.Hint="Search patients..."
+                 materialDesign:HintAssist.Hint="Search doctors..."
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Margin="50 50 0 0"
@@ -39,17 +39,17 @@
                 IsReadOnly="True"
                 ItemsSource="{Binding Doctors}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn 
+                    <DataGridTextColumn
                         Binding="{Binding FirstName}"
                         Header="First name"
                         Width="150" />
-                    <DataGridTextColumn 
-                        Binding="{Binding LastName}" 
-                        Header="Last name" 
+                    <DataGridTextColumn
+                        Binding="{Binding LastName}"
+                        Header="Last name"
                         Width="150" />
-                    <DataGridTextColumn 
+                    <DataGridTextColumn
                         Binding="{Binding PhoneNumber}"
-                        Header="Phone number" 
+                        Header="Phone number"
                         Width="150"/>
                 </DataGrid.Columns>
             </DataGrid>
