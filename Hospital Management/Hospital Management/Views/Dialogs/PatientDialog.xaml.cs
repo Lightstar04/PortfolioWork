@@ -24,15 +24,13 @@ namespace Hospital_Management.Views.Dialogs
         public PatientDialog()
         {
             InitializeComponent();
+
+            DataContext = new PatientDialogViewModel();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void Cancelled_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-
+            Close();
         }
     }
 }

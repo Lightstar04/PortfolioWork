@@ -12,5 +12,10 @@
         {
             Doctors = new List<DoctorSpecialization>();
         }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

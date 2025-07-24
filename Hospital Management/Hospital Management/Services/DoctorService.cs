@@ -12,9 +12,10 @@ namespace Hospital_Management.Services
             _context = new HospitalDbContext();
         }
 
-        public List<Doctor> GetDoctors(string search = "")
+        public List<Doctor> GetDoctors(string search = "", int? specializationId = null)
         {
             var query = _context.Doctors
+                .Include(x => x.Specializations)
                 .AsNoTracking()
                 .AsQueryable();
 
@@ -23,6 +24,13 @@ namespace Hospital_Management.Services
                 query = query.Where(x => x.FirstName.Contains(search) || 
                 x.LastName.Contains(search) ||
                 x.PhoneNumber.Contains(search));
+            }
+
+            if(specializationId != null)
+            {
+                query = query
+                    .Where(x => x.Specializations
+                    .Any(s => s.SpecializationId == specializationId));
             }
 
             return query.ToList();

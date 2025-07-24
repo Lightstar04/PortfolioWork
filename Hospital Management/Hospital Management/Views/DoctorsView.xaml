@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -22,18 +23,31 @@
                  materialDesign:HintAssist.Hint="Search doctors..."
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="50 50 0 0"
-                 Width="300" />
+                 Margin="50 50 50 0"
+                 Width="180"
+                 Height="50"/>
+        <ComboBox
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="250"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="50 50 50 0"
+            materialDesign:HintAssist.HelperText="Filter"
+            materialDesign:HintAssist.Hint="Filter with specializations"
+            Style="{StaticResource MaterialDesignOutlinedComboBox}" 
+            ItemsSource="{Binding Specializations}"
+            SelectedItem="{Binding SelectedSpecialization}"/>
         <Button HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Grid.Column="1"
+                Grid.Column="2"
                 Content="Add+ "
                 Width="250"
                 Margin="0 60 50 0" />
         <materialDesign:Card
             Margin="50 25 50 25"
             Grid.Row="1"
-            Grid.ColumnSpan="2">
+            Grid.ColumnSpan="3">
             <DataGrid
                 AutoGenerateColumns="False"
                 IsReadOnly="True"

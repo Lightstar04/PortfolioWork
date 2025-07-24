@@ -38,46 +38,58 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>
         <TextBox
-            Grid.Row="1" Grid.Column="0"
+            Grid.Row="1"
+            Grid.Column="0"
             Grid.ColumnSpan="3"
+            Text="{Binding FirstName}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="40"
             md:HintAssist.Hint="Enter first name"
             Margin="15 0"
             Padding="10"/>
         <TextBox
-            Grid.Row="1" Grid.Column="3"
+            Grid.Row="1"
+            Grid.Column="3"
             Grid.ColumnSpan="3"
+            Text="{Binding LastName}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Height="40"
             md:HintAssist.Hint="Enter last name"
             Margin="15 0"
             Padding="10" />
-        <TextBox Grid.Row="2" Grid.Column="0"
-                 Grid.ColumnSpan="2"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Height="40"
-                 md:HintAssist.Hint="Enter phone number"
-                 Margin="15 0"
-                 Padding="10" />
-        <DatePicker
-            Grid.Row="2" Grid.Column="2"
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="0"
             Grid.ColumnSpan="2"
+            Text="{Binding PhoneNumber}"
+            Style="{StaticResource MaterialDesignOutlinedTextBox}"
+            Height="40"
+            md:HintAssist.Hint="Enter phone number"
+            Margin="15 0"
+            Padding="10" />
+        <DatePicker
+            Grid.Row="2"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Text="{Binding BirthDate}"
             Style="{StaticResource MaterialDesignOutlinedDatePicker}"
             Height="40"
             md:HintAssist.Hint="Choose birthdate"
             Margin="15 0"
             Padding="10"/>
-        <ComboBox Grid.Row="2" Grid.Column="4"
-                  Grid.ColumnSpan="2"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                  Height="40"
-                  md:HintAssist.Hint="Select gender"
-                  Margin="15  0"
-                  Padding="10"/>
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="4"
+            Grid.ColumnSpan="2"
+            SelectedItem="{Binding SelectedGender}"
+            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+            Height="40"
+            md:HintAssist.Hint="Select gender"
+            Margin="15  0"
+            Padding="10"/>
         <Button
             Content="Cancel"
-            Click="Cancel_Click"
+            Click="Cancelled_Click"
             Grid.ColumnSpan="3"
             Grid.Row="3"
             Grid.Column="0"
@@ -86,7 +98,7 @@
             Style="{StaticResource MaterialDesignPaperDarkButton}"/>
         <Button
             Content="Save"
-            Click="Save_Click"
+            Command="{Binding SaveCommand}"
             Grid.ColumnSpan="3"
             Grid.Row="3"
             Grid.Column="3"

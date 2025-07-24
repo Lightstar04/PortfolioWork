@@ -8,6 +8,7 @@ namespace Hospital_Management.ViewModels
     public class DoctorsViewModel : BaseViewModel
     {
         private readonly DoctorService _doctorService;
+        private readonly SpecializationService _specializationService;
 
         private string _searchText;
         public string SearchText
@@ -20,14 +21,26 @@ namespace Hospital_Management.ViewModels
             }
         }
 
+        private Specialization _selectedSpecialization;
+        public Specialization SelectedSpecialization
+        {
+            get => _selectedSpecialization;
+            set => SetProperty(ref _selectedSpecialization, value);
+        }
+
         public List<Doctor> doctorsList;
         public ObservableCollection<Doctor> Doctors { get; set; }
+        public ObservableCollection<Specialization> Specializations { get; set; }
 
         public DoctorsViewModel()
         {
             _doctorService = new DoctorService();
+            _specializationService = new SpecializationService();
+
             doctorsList = new List<Doctor>();
+            
             Doctors = new ObservableCollection<Doctor>();
+            Specializations = new ObservableCollection<Specialization>();
 
             Load();
         }
@@ -35,11 +48,17 @@ namespace Hospital_Management.ViewModels
         private void Load()
         {
             var doctors = _doctorService.GetDoctors();
+            var specializations = _specializationService.GetAll();
 
             foreach(var doctor in doctors)
             {
                 Doctors.Add(doctor);
                 doctorsList.Add(doctor);
+            }
+
+            foreach(var specialization in specializations)
+            {
+                Specializations.Add(specialization);
             }
         }
 
